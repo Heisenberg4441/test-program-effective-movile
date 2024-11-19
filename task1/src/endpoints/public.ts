@@ -9,7 +9,7 @@ server.post('/shop/createNewProduct', async (req, res) => {
         res.send(`Data is not valid!`);
         return res;
     }
-    res.send(await createNewProduct(req.body)) ;
+    res.send(await createNewProduct(req.body));
     return res;
 })
 

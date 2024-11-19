@@ -79,7 +79,7 @@ export const editQuantityInCart = async (values: editQuantityValues) => {
             WHERE plu=${values.plu}`
         return `Quantity edited!\n${response}`
     } catch (e) {
-        return `Product not found!\n${e}`;;
+        return `Product not found!\n${e}`;
     }
 
 }
@@ -87,17 +87,15 @@ export const editQuantityInCart = async (values: editQuantityValues) => {
 //Изменение остатка
 export const editQuantity = async (values: editQuantityValues) => {
     try {
-        const body_values = await getProductData(values.plu)
-        const product_name = body_values.product_name
-        const shop_id = body_values.shop_id
-        console.log(values.delete[0])
+        const body_values = await getProductData(values.plu);
+        const product_name = body_values.product_name;
+        const shop_id = body_values.shop_id;
         const body = {
             shop_id: shop_id,
             plu: values.plu,
             action: `Изменен общий остаток товара; название товара: ${product_name}; plu товара: ${values.plu}; Магазин - ${values.delete[1] === true ? `удалено` : `прибавлено`} ${values.changeShopValue}; Корзина - ${values.delete[0] === true ? `удалено` : `прибавлено`} ${values.changeCartValue}`
         }
-        console.log(body)
-        await addOperation(body)
+        await addOperation(body);
         const response = await sql`
             UPDATE products
             SET 
@@ -165,10 +163,9 @@ export const getQuantity = async (values: product) => {
                 WHERE 
                     shop_id=${values.shop_id}`
         }
-        console.log(response[0])
-        const body_data = response[0]
-        let products = ``
-        let plus = ``
+        const body_data = response[0];
+        let products = ``;
+        let plus = ``;
         response.forEach((e) => {
             products = products + `${e.product_name}, `
             plus = plus + `${e.plu}, `
@@ -178,22 +175,21 @@ export const getQuantity = async (values: product) => {
             plu: body_data.plu,
             action: `Получение остатка по фильтру; получен продукт(ы): ${products}plu товара(ов): ${plus}`
         }
-        console.log(body)
-        addOperation(body)
+        addOperation(body);
         response = {
             quantity_of_products_in_shop: body_data.quantity_of_products_in_shop,
             quantity_of_products_in_cart: body_data.quantity_of_products_in_cart,
         }
         return response;
     } catch (e) {
-        return `Product not found!\n${e}`
+        return `Product not found!\n${e}`;
     }
 }
 
 //Получить продукт по фильтру(plu и product_name)
 export const getProductsByFilter = async (values: product) => {
     try {
-        let response
+        let response;
         if (values.plu !== undefined) {
             response = await sql`
         SELECT *
@@ -208,7 +204,7 @@ export const getProductsByFilter = async (values: product) => {
         WHERE 
             product_name=${values.product_name}`
         }
-        const body_data = response[0]
+        const body_data = response[0];
         const body = {
             shop_id: body_data.shop_id,
             plu: body_data.plu,
@@ -217,7 +213,7 @@ export const getProductsByFilter = async (values: product) => {
         addOperation(body);
         return response;
     } catch (e) {
-        return `Product not found!\n${e}`
+        return `Product not found!\n${e}`;
     }
 }
 
@@ -233,9 +229,9 @@ export const createProductsNewTable = async () => {
 	    shop_id INTEGER
     );
     `
-        return `Table created! ${response}`
+        return `Table created! ${response}`;
     } catch (e) {
-        return `${e}`
+        return `${e}`;
     }
 
 }

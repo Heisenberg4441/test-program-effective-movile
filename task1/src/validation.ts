@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod";
 
 const productSchema = z.object({
     plu: z.number().optional(),
@@ -14,8 +14,8 @@ const editQuantityValuesSchema = z.object({
     changeShopValue: z.number().optional(),
     changeCartValue: z.number().optional(),
     delete: z.union([
-        z.tuple([z.boolean()]), // Один элемент
-        z.tuple([z.boolean(), z.boolean().optional()]), // Два элемента
+        z.tuple([z.boolean()]),
+        z.tuple([z.boolean(), z.boolean().optional()])
     ]),
 });
 
@@ -31,10 +31,9 @@ export const validateProduct = (product: unknown) => {
 
 export const validateQuantityChanging = (editQuantityValues: unknown) => {
     try {
-        console.log(editQuantityValuesSchema.parse(editQuantityValues));
+        editQuantityValuesSchema.parse(editQuantityValues);
         return true;
     } catch (e) {
-        console.log(e)
         return false;
     }
 

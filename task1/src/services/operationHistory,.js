@@ -10,12 +10,11 @@ export const createNewOperationHistoryTable = async () => {
         action TEXT
     );
     `
-    return response
+    return response;
 }
 
 export const addOperation = async (body) => {
-    const date = time()
-    const product_data = await getProductData(body.plu)
+    const date = time();
     const response = await sql`
     INSERT INTO operation_history (
         shop_id,
@@ -29,11 +28,11 @@ export const addOperation = async (body) => {
         ${body.action}
     )
     `
-    return response
+    return response;
 }
 
 export const getOperationsByFilter = async (values) => {
-    let response
+    let response;
     if (values.shop_id !== undefined) {
         response = await sql`
         SELECT *
@@ -62,11 +61,11 @@ export const getOperationsByFilter = async (values) => {
         WHERE 
             action=${values.action}`
     }
-    return response
+    return response;
 }
 
 export const getAllOperations = async () => {
     const response = await sql`
     SELECT * FROM operation_history`
-    return response
+    return response;
 }
